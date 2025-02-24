@@ -8,14 +8,13 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 source_dir = "C:/Users/Conner Groth/Downloads"
-dest_dir_image = "C:/Users/Conner Groth/Images" 
-dest_dir_icon = "C:/Users/Conner Groth/Icons" 
-dest_dir_document = "C:/Users/Conner Groth/Documents" 
-dest_dir_text = "C:/Users/Conner Groth/Text" 
-dest_dir_py = "C:/Users/Conner Groth/Python" 
-dest_dir_song = "C:/Users/Conner Groth/Songs/LocalFiles 2" 
-dest_dir_video = "C:/Users/Conner Groth/Videos" 
-
+dest_dir_image = "C:/Users/Conner Groth/Images"
+dest_dir_icon = "C:/Users/Conner Groth/Icons"
+dest_dir_document = "C:/Users/Conner Groth/Documents"
+dest_dir_text = "C:/Users/Conner Groth/Text"
+dest_dir_py = "C:/Users/Conner Groth/Python"
+dest_dir_song = "C:/Users/Conner Groth/Songs/LocalFiles 2"
+dest_dir_video = "C:/Users/Conner Groth/Videos"
 
 def makeUnique(dest, name):
     filename, extension = splitext(name)
@@ -29,9 +28,10 @@ def makeUnique(dest, name):
 def move(dest, entry, name):
     if exists(f"{dest}/{name}"):
         unique_name = makeUnique(dest, name)
-        oldName = join(dest, name)
-        newName = join(dest, unique_name)
-        rename(oldName, newName)
+        oldName = os.path.join(dest, name)
+        newName = os.path.join(dest, unique_name)
+        os.rename(oldName, newName)
+        time.sleep(1)
     shutil.move(entry, dest)
 
 class MoverHandler(FileSystemEventHandler):
@@ -57,8 +57,8 @@ class MoverHandler(FileSystemEventHandler):
                 else:
                     dest = dest_dir_video  
     
-        move(dest, entry, name)
-        print("Moved": {name} to {dest}) 
+            move(dest, entry, name)
+            print("Moved: {name} to {dest}") 
         else: 
             return 
 
